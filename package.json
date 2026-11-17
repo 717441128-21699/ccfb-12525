@@ -1,0 +1,19 @@
+{
+  "name": "whiteboard-extractor",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 5199 --strictPort",
+    "selftest": "node run-selftest.mjs",
+    "smoke": "node smoke.mjs",
+    "test:export": "node --experimental-strip-types test-export.mjs"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11",
+    "puppeteer-core": "^23.10.4"
+  }
+}

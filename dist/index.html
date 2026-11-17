@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>板书提取器 · 录播课板书自动抠页</title>
+  <script type="module" crossorigin src="/assets/main-eTUASZCw.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/synth-CVnLERdr.js">
+  <link rel="stylesheet" crossorigin href="/assets/main-Bsk3dfJj.css">
+</head>
+<body>
+  <header>
+    <h1>板书提取器</h1>
+    <span class="sub">录播录像 → 一页一页的干净板书（WebCodecs 解码 · GPU 着色器处理）</span>
+  </header>
+  <div id="layout">
+    <aside id="courses">
+      <h2>课程</h2>
+      <div class="row">
+        <button id="btnAddFile">添加录像文件</button>
+        <input type="file" id="fileInput" accept="video/mp4,.mp4" hidden />
+      </div>
+      <div class="row">
+        <button id="btnSynth">生成演示课程（合成录像）</button>
+      </div>
+      <div id="synthStatus" class="muted"></div>
+      <ul id="courseList"></ul>
+    </aside>
+    <main>
+      <nav id="tabs">
+        <button data-tab="locate" class="tab active">白板定位</button>
+        <button data-tab="progress" class="tab">提取进度</button>
+        <button data-tab="timeline" class="tab">板书时间线</button>
+        <button data-tab="output" class="tab">成果下载</button>
+      </nav>
+
+      <section id="tab-locate" class="tabpage active">
+        <p class="muted">自动检测白板四边（老师挡住一截也能定位）；不准时拖动四个角微调，然后确认。</p>
+        <div class="row">
+          <button id="btnDetect">自动检测白板</button>
+          <button id="btnConfirmQuad">确认位置，开始提取</button>
+          <span id="detectInfo" class="muted"></span>
+        </div>
+        <div class="canvasWrap"><canvas id="locateCanvas" width="960" height="540"></canvas></div>
+      </section>
+
+      <section id="tab-progress" class="tabpage">
+        <div class="progressOuter"><div id="progressBar" class="progressInner"></div></div>
+        <div id="progressStats" class="muted">尚未开始</div>
+        <div class="row">
+          <label><input type="checkbox" id="chkShowPerson" /> 显示人体遮挡掩膜</label>
+        </div>
+        <div class="canvasWrap"><canvas id="liveCanvas" width="960" height="540"></canvas></div>
+      </section>
+
+      <section id="tab-timeline" class="tabpage">
+        <p class="muted">每一段是一页板书，点击查看。</p>
+        <div id="timeline"></div>
+      </section>
+
+      <section id="tab-output" class="tabpage">
+        <div class="row">
+          <button id="btnPdf">下载多页 PDF</button>
+          <button id="btnZip">下载图片 ZIP</button>
+          <button id="btnPng">下载当前页 PNG</button>
+        </div>
+        <div id="pageInfo" class="muted"></div>
+        <div class="row" id="layerToggles">
+          图层：
+          <label><input type="checkbox" id="layRed" checked /> <span class="sw red"></span>红笔</label>
+          <label><input type="checkbox" id="layBlue" checked /> <span class="sw blue"></span>蓝笔</label>
+          <label><input type="checkbox" id="layBlack" checked /> <span class="sw black"></span>黑笔</label>
+          <label><input type="checkbox" id="layHeat" /> 书写热度</label>
+        </div>
+        <div class="canvasWrap"><canvas id="pageCanvas" width="1280" height="720"></canvas></div>
+        <div id="pageThumbs"></div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
