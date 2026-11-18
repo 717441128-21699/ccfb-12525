@@ -1,0 +1,28 @@
+{
+  "name": "whiteboard-extractor",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Automatic whiteboard capture from classroom recordings (WebCodecs + WebGL2 + TypeScript)",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "test:unit": "vitest run",
+    "test:e2e": "tsx tests/run-e2e.ts",
+    "test": "vitest run && tsx tests/run-e2e.ts"
+  },
+  "dependencies": {
+    "jszip": "^3.10.1",
+    "mp4box": "^0.5.2",
+    "pdf-lib": "^1.17.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.9.0",
+    "puppeteer-core": "^23.8.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3",
+    "vite": "^6.0.1",
+    "vitest": "^2.1.5"
+  }
+}

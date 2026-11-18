@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>白板板书自动提取</title>
+  <style>
+    :root {
+      --bg: #1c1f26;
+      --panel: #262b35;
+      --line: #353c49;
+      --fg: #e8ebf1;
+      --muted: #9aa4b4;
+      --accent: #4f8cff;
+      --ok: #36b37e;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, "Segoe UI", "Microsoft YaHei", sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+    }
+    header {
+      padding: 18px 28px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+    }
+    header h1 { font-size: 20px; margin: 0; }
+    header span { color: var(--muted); font-size: 13px; }
+    main { padding: 24px 28px; max-width: 1280px; margin: 0 auto; }
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+    button, .btn {
+      background: var(--accent);
+      color: #fff;
+      border: 0;
+      border-radius: 8px;
+      padding: 10px 18px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    button:disabled { opacity: 0.45; cursor: default; }
+    button.secondary { background: #3a4252; }
+    .hint { color: var(--muted); font-size: 13px; }
+    .progress {
+      height: 8px;
+      background: #14171d;
+      border-radius: 4px;
+      overflow: hidden;
+      margin: 12px 0;
+      display: none;
+    }
+    .progress.show { display: block; }
+    .progress > div { height: 100%; width: 0; background: var(--accent); transition: width 0.2s; }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 10px;
+      margin: 16px 0;
+    }
+    .stat {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 12px 14px;
+    }
+    .stat b { display: block; font-size: 20px; margin-top: 4px; }
+    .stat label { color: var(--muted); font-size: 12px; }
+    .pages { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 18px; }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .card .thumb { background: #fff; }
+    .card .thumb canvas { width: 100%; display: block; }
+    .card .meta { padding: 12px 14px; font-size: 13px; }
+    .card .meta .footer { color: var(--muted); margin-top: 6px; line-height: 1.5; }
+    .layer-tabs { display: flex; gap: 6px; padding: 10px 14px 0; }
+    .layer-tabs button { padding: 5px 12px; font-size: 12px; background: #3a4252; }
+    .layer-tabs button.active { background: var(--accent); }
+    .log {
+      background: #14171d;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-family: ui-monospace, monospace;
+      font-size: 12px;
+      color: var(--muted);
+      max-height: 200px;
+      overflow: auto;
+      white-space: pre-wrap;
+      margin-top: 18px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>白板板书自动提取</h1>
+    <span>WebCodecs 解码 · WebGL2 图像分析 · 自动分页 / 红蓝黑分层 / PDF+图片导出</span>
+  </header>
+  <main>
+    <div class="toolbar">
+      <input id="file" type="file" accept="video/mp4,video/*" />
+      <button id="demo" class="secondary">用合成测试片演示</button>
+      <button id="pdf" disabled>导出多页 PDF</button>
+      <button id="zip" disabled>导出图片/分层 ZIP</button>
+      <span class="hint" id="hint">选择录播教室视频（MP4），或先看合成演示。</span>
+    </div>
+    <div class="progress" id="progress"><div></div></div>
+    <div class="stats" id="stats"></div>
+    <div class="pages" id="pages"></div>
+    <div class="log" id="log" style="display:none"></div>
+  </main>
+  <script type="module" src="./main.ts"></script>
+</body>
+</html>
